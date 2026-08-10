@@ -51,7 +51,7 @@ Everything happens locally in your browser.
 ### From source
 
 ```bash
-git clone https://github.com/shubhranshgupta/findit.git
+git clone https://github.com/shubhransh-gupta/findit.git
 cd findit
 npm install
 npm run generate-icons
