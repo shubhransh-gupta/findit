@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Learn about Swift concurrency features including actors, async/await, and structured concurrency">
+  <title>Swift Concurrency — Actors and Async/Await</title>
+</head>
+<body>
+  <nav><a href="#">Home</a> <a href="#">Docs</a></nav>
+  <article>
+    <h1>Swift Concurrency</h1>
+    <h2>Actors</h2>
+    <p>Actors protect their mutable state and prevent conflicting access to that state in concurrent code. An actor is a reference type that serializes access to its mutable state.</p>
+    <h2>Async/Await</h2>
+    <p>Swift's async/await syntax provides a readable way to write asynchronous code. Functions marked with async can suspend execution and resume later.</p>
+    <h2>Structured Concurrency</h2>
+    <p>Structured concurrency ensures that concurrent tasks have a well-defined lifetime and scope. Task groups allow you to manage multiple concurrent operations.</p>
+    <h2>Sendable</h2>
+    <p>The Sendable protocol indicates that a type can safely be transferred across concurrency domains. Value types are generally Sendable by default.</p>
+    <h2>MainActor</h2>
+    <p>MainActor is a global actor that represents the main dispatch queue. UI updates must happen on the MainActor.</p>
+  </article>
+  <footer>Copyright 2026 swift.org</footer>
+</body>
+</html>

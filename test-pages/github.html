@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="OAuth 2.0 authentication implementation guide for GitHub Apps">
+  <title>GitHub OAuth Implementation Guide</title>
+</head>
+<body>
+  <article>
+    <h1>GitHub OAuth Implementation Guide</h1>
+    <h2>Setting Up OAuth App</h2>
+    <p>Register a new OAuth application in your GitHub developer settings. You'll receive a client ID and client secret for authentication flows.</p>
+    <h2>Authorization Code Flow</h2>
+    <p>The authorization code flow is recommended for server-side applications. Redirect users to GitHub's authorization endpoint, then exchange the code for an access token.</p>
+    <h2>Device Flow</h2>
+    <p>For CLI tools and headless applications, use the device authorization flow. Users enter a code on GitHub to grant access without a browser redirect.</p>
+    <h2>Token Management</h2>
+    <p>Store access tokens securely using environment variables or secret management services. Implement token refresh for long-lived applications using refresh tokens.</p>
+    <h2>Scopes</h2>
+    <p>Request only the minimum scopes needed for your application. Common scopes include repo, user, and read:org for repository and organization access.</p>
+  </article>
+</body>
+</html>

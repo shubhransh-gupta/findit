@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Understanding actor isolation in Swift programming language">
+  <title>Actor Isolation in Swift — Complete Guide</title>
+</head>
+<body>
+  <article>
+    <h1>Actor Isolation in Swift</h1>
+    <p>Actor isolation is a fundamental concept in Swift's concurrency model. Each actor maintains its own isolated state that can only be accessed through the actor's executor.</p>
+    <h2>Isolated State</h2>
+    <p>Properties and methods of an actor are isolated by default. External code must use await to access actor-isolated members, ensuring thread-safe access.</p>
+    <h2>Nonisolated Members</h2>
+    <p>Members marked as nonisolated can be accessed synchronously from any context. This is useful for computed properties that don't access mutable state.</p>
+    <h2>Global Actors</h2>
+    <p>Custom global actors allow you to define shared isolation domains beyond the default actor isolation. The @MainActor attribute is the most commonly used global actor.</p>
+  </article>
+</body>
+</html>
