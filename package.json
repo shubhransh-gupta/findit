@@ -10,7 +10,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "generate-icons": "node scripts/generate-icons.mjs"
+    "generate-icons": "node scripts/generate-icons.mjs",
+    "load": "bash scripts/load-extension.sh chrome",
+    "load:chrome": "bash scripts/load-extension.sh chrome",
+    "load:brave": "bash scripts/load-extension.sh brave"
   },
   "dependencies": {
     "dexie": "^4.0.11",

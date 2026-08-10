@@ -48,7 +48,9 @@ Everything happens locally in your browser.
 
 ## Installation
 
-### From source
+FINDIT is not on the Chrome Web Store yet — install it from source. Works on **Google Chrome**, **Brave**, and other Chromium browsers.
+
+### 1. Clone and build
 
 ```bash
 git clone https://github.com/shubhransh-gupta/findit.git
@@ -58,20 +60,50 @@ npm run generate-icons
 npm run build
 ```
 
-Load the extension in Chrome/Brave:
+This creates a `dist/` folder with the packaged extension.
 
-1. Open `chrome://extensions`
-2. Enable **Developer mode**
+### 2. Install in Chrome
+
+1. Open **`chrome://extensions`** in Chrome
+2. Turn on **Developer mode** (top-right toggle)
 3. Click **Load unpacked**
-4. Select the `dist` folder
+4. Select the **`dist`** folder inside the project
 
-### Development
+FINDIT appears in your toolbar. Press **`⌘⇧F`** (Mac) or **`Ctrl+Shift+F`** (Windows/Linux) to search.
+
+### 3. Install in Brave
+
+1. Open **`brave://extensions`** in Brave
+2. Turn on **Developer mode** (top-right toggle)
+3. Click **Load unpacked**
+4. Select the **`dist`** folder inside the project
+
+Same keyboard shortcut: **`⌘⇧F`** / **`Ctrl+Shift+F`**.
+
+### Quick load (development)
+
+To build and load in one command without the manual steps above:
+
+```bash
+npm run load          # Chrome
+npm run load:brave    # Brave
+```
+
+This uses `--load-extension` and loads FINDIT for the current browser session. For a permanent install, use the **Load unpacked** steps above once.
+
+### Development with hot reload
 
 ```bash
 npm run dev
 ```
 
-Load the `dist` folder as an unpacked extension. Vite will rebuild on changes.
+Then load the `dist` folder via **Load unpacked**. Vite rebuilds automatically when you change source files — reload the extension at `chrome://extensions` to pick up changes.
+
+### Verify it works
+
+1. Open `test-pages/swift.html` in your browser
+2. Press **`⌘⇧F`** and search for `swift actors`
+3. The Swift Concurrency page should appear in results
 
 ## Usage
 
@@ -194,7 +226,7 @@ Access storage settings from the dashboard (`Open dashboard → Storage`):
 
 Live marketing site: **https://shubhransh-gupta.github.io/findit/**
 
-Open `website/index.html` locally to preview.
+## License
 
 MIT
 

@@ -21,6 +21,7 @@
       <span class="brand-name">FINDIT</span>
     </div>
     <div class="nav-links">
+      <a href="#install">Install</a>
       <a href="#features">Features</a>
       <a href="#privacy">Privacy</a>
       <a href="https://github.com/shubhransh-gupta/findit" target="_blank">GitHub</a>
@@ -39,8 +40,8 @@
       </p>
       <p class="hero-tagline">We all float down here... in your browsing memories.</p>
       <div class="hero-actions">
-        <a href="https://github.com/shubhransh-gupta/findit" class="btn btn-primary glass">
-          Add to Chrome
+        <a href="#install" class="btn btn-primary glass">
+          Install FINDIT
         </a>
         <a href="https://github.com/shubhransh-gupta/findit" class="btn btn-secondary glass">
           View on GitHub
@@ -68,6 +69,53 @@
         <div class="demo-result-snippet">"...isolated state prevents data races..."</div>
         <div class="demo-result-meta">8 days ago</div>
       </div>
+    </div>
+  </section>
+
+  <section id="install" class="install">
+    <h2 class="section-title">Install FINDIT</h2>
+    <p class="section-subtitle">Works on Google Chrome, Brave, and other Chromium browsers.</p>
+
+    <div class="install-steps">
+      <div class="install-step glass">
+        <span class="step-num">1</span>
+        <h3>Clone &amp; build</h3>
+        <pre><code>git clone https://github.com/shubhransh-gupta/findit.git
+cd findit
+npm install
+npm run generate-icons
+npm run build</code></pre>
+      </div>
+
+      <div class="install-step glass">
+        <span class="step-num">2</span>
+        <h3>Install in Chrome</h3>
+        <ol>
+          <li>Open <code>chrome://extensions</code></li>
+          <li>Enable <strong>Developer mode</strong></li>
+          <li>Click <strong>Load unpacked</strong></li>
+          <li>Select the <code>dist</code> folder</li>
+        </ol>
+      </div>
+
+      <div class="install-step glass">
+        <span class="step-num">3</span>
+        <h3>Install in Brave</h3>
+        <ol>
+          <li>Open <code>brave://extensions</code></li>
+          <li>Enable <strong>Developer mode</strong></li>
+          <li>Click <strong>Load unpacked</strong></li>
+          <li>Select the <code>dist</code> folder</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="install-quick glass">
+      <h3>Quick load (one command)</h3>
+      <p>For development — builds and loads FINDIT in one step:</p>
+      <pre><code>npm run load          # Chrome
+npm run load:brave    # Brave</code></pre>
+      <p class="install-note">For a permanent install, use <strong>Load unpacked</strong> above once. Press <kbd>⌘⇧F</kbd> or <kbd>Ctrl+Shift+F</kbd> to open search.</p>
     </div>
   </section>
 
@@ -162,8 +210,8 @@
     <div class="cta-content glass">
       <h2>Ready to never forget again?</h2>
       <p>Install FINDIT and let your browsing memories float to the surface.</p>
-      <a href="https://github.com/shubhransh-gupta/findit" class="btn btn-primary">
-        Get FINDIT — It's Free
+      <a href="#install" class="btn btn-primary">
+        Install FINDIT
       </a>
     </div>
   </section>
