@@ -190,7 +190,11 @@ Access storage settings from the dashboard (`Open dashboard → Storage`):
 - Set retention policy (30 days, 90 days, 1 year, forever)
 - Clear old pages or delete all data
 
-## License
+## Website
+
+Live marketing site: **https://shubhransh-gupta.github.io/findit/**
+
+Open `website/index.html` locally to preview.
 
 MIT
 
