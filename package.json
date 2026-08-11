@@ -2,6 +2,7 @@
   "name": "findit",
   "version": "1.0.0",
   "description": "Your personal search engine for the internet you've already seen",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +14,8 @@
     "generate-icons": "node scripts/generate-icons.mjs",
     "load": "bash scripts/load-extension.sh chrome",
     "load:chrome": "bash scripts/load-extension.sh chrome",
-    "load:brave": "bash scripts/load-extension.sh brave"
+    "load:brave": "bash scripts/load-extension.sh brave",
+    "screenshots": "npm run build && node scripts/capture-screenshots.mjs"
   },
   "dependencies": {
     "dexie": "^4.0.11",
