@@ -1,10 +1,40 @@
 # FINDIT
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-e63946.svg)](LICENSE)
+
 > **You don't need to remember where you saw it. FINDIT remembers for you.**
 
 *We all float down here... in your browsing memories.*
 
 FINDIT is a privacy-first Chrome/Brave browser extension that creates a **searchable memory of your browsing activity**. Inspired by the haunting persistence of memory from Derry's depths — but with your data staying safely on your device.
+
+## Screenshots
+
+### Command palette — `⌘⇧F` / `Ctrl+Shift+F`
+
+Search your browsing memory instantly. Results show title, domain, snippets, and when you last visited.
+
+![FINDIT command palette with search results](docs/screenshots/command-palette.png)
+
+### Toolbar popup
+
+Quick access to search, recent queries, and indexing status.
+
+![FINDIT toolbar popup](docs/screenshots/popup.png)
+
+### Search results
+
+Full-text search with highlighted matches across everything you've visited.
+
+![FINDIT search results](docs/screenshots/search-results.png)
+
+### Dashboard
+
+Manage memories, privacy settings, pinned pages, and storage from one place.
+
+![FINDIT dashboard](docs/screenshots/dashboard.png)
+
+> Screenshots captured from the live extension UI. Regenerate anytime with `npm run screenshots`.
 
 ## Problem
 
@@ -228,7 +258,9 @@ Live marketing site: **https://shubhransh-gupta.github.io/findit/**
 
 ## License
 
-MIT
+FINDIT is released under the [MIT License](LICENSE).
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-e63946.svg)](LICENSE)
 
 ---
 
