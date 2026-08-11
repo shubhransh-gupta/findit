@@ -1,4 +1,4 @@
-import { indexPage, updateVisitOnly } from '../indexing/pageIndexer';
+import { handleIndexPage, handleSaveSelection } from './indexManager';
 import { searchEngine, findRelatedPages } from '../search/searchEngine';
 import {
   getSettings,
@@ -10,12 +10,12 @@ import {
   getStorageStats,
   getRecentSearches,
   getRecentPages,
-  getPageByUrl,
+  getPageById,
   addToCollection,
 } from '../database/repositories/pageRepository';
 import { db } from '../database/schema';
 import { DEFAULT_COLLECTIONS } from '../shared/constants';
-import { isExcludedUrl, simpleHash } from '../shared/utils';
+import { setupTabIndexing, indexAllOpenTabs } from './tabManager';
 import type { SearchQuery } from '../shared/types';
 
 let paletteTabId: number | null = null;
@@ -65,34 +65,6 @@ async function initCollections(): Promise<void> {
       });
     }
   }
-}
-
-async function handleIndexPage(payload: Record<string, unknown>): Promise<void> {
-  const settings = await getSettings();
-  if (!settings.indexingEnabled) return;
-
-  const url = payload.url as string;
-  if (isExcludedUrl(url, settings.excludedDomains)) return;
-
-  const existing = await getPageByUrl(url);
-  const contentHash = simpleHash(
-    (payload.content as string) + (payload.title as string)
-  );
-
-  if (existing && existing.contentHash === contentHash) {
-    await updateVisitOnly(url);
-    return;
-  }
-
-  await indexPage({
-    url,
-    title: payload.title as string,
-    description: payload.description as string | undefined,
-    headings: payload.headings as string[],
-    content: payload.content as string,
-    favicon: payload.favicon as string | undefined,
-    savedSelection: payload.savedSelection as string | undefined,
-  });
 }
 
 async function openCommandPalette(query?: string): Promise<void> {
@@ -145,11 +117,16 @@ async function openCommandPalette(query?: string): Promise<void> {
 chrome.runtime.onInstalled.addListener(async () => {
   await initContextMenus();
   await initCollections();
+  setupTabIndexing();
+  await indexAllOpenTabs();
 });
 
 chrome.runtime.onStartup.addListener(async () => {
   await initContextMenus();
+  setupTabIndexing();
 });
+
+setupTabIndexing();
 
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === 'open-command-palette') {
@@ -165,13 +142,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   } else if (info.menuItemId === 'findit-save-selection' && tab?.id) {
     const response = await chrome.tabs.sendMessage(tab.id, { type: 'GET_SELECTION' });
     if (response?.selection && tab.url) {
-      await handleIndexPage({
-        url: tab.url,
-        title: tab.title ?? 'Saved Selection',
-        headings: [],
-        content: response.selection,
-        savedSelection: response.selection,
-      });
+      await handleSaveSelection({ url: tab.url, selection: response.selection });
     }
   } else if (info.menuItemId === 'findit-search-similar' && info.selectionText) {
     await openCommandPalette(info.selectionText);
@@ -188,8 +159,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 async function handleMessage(message: { type: string; payload?: unknown }) {
   switch (message.type) {
     case 'INDEX_PAGE':
-      await handleIndexPage(message.payload as Record<string, unknown>);
-      return { ok: true };
+      return await handleIndexPage(message.payload as Parameters<typeof handleIndexPage>[0]);
 
     case 'SEARCH': {
       const query = message.payload as SearchQuery;
@@ -251,9 +221,7 @@ async function handleMessage(message: { type: string; payload?: unknown }) {
 
     case 'GET_RELATED': {
       const pageId = (message.payload as { pageId: string }).pageId;
-      const page = await import('../database/repositories/pageRepository').then(
-        (m) => m.getPageById(pageId)
-      );
+      const page = await getPageById(pageId);
       if (!page) return { pages: [] };
       const related = await findRelatedPages(page);
       return { pages: related };

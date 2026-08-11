@@ -65,7 +65,8 @@ export async function getAllPages(): Promise<PageRecord[]> {
 }
 
 export async function getPinnedPages(): Promise<PageRecord[]> {
-  return db.pages.where('pinned').equals(1).toArray();
+  const pages = await db.pages.toArray();
+  return pages.filter((p) => p.pinned);
 }
 
 export async function getRecentPages(limit = 20): Promise<PageRecord[]> {
@@ -190,15 +191,19 @@ export async function getPagesByCollection(collectionId: string): Promise<PageRe
 }
 
 export async function storeTerms(pageId: string, terms: Map<string, { field: string; count: number }>): Promise<void> {
-  await db.terms.where('pageId').equals(pageId).delete();
-  const records = Array.from(terms.entries()).map(([term, data]) => ({
-    pageId,
-    term,
-    field: data.field as 'title' | 'heading' | 'domain' | 'url' | 'body',
-    count: data.count,
-  }));
-  if (records.length > 0) {
-    await db.terms.bulkAdd(records);
+  try {
+    await db.terms.where('pageId').equals(pageId).delete();
+    const records = Array.from(terms.entries()).map(([term, data]) => ({
+      pageId,
+      term: term.slice(0, 100),
+      field: data.field as 'title' | 'heading' | 'domain' | 'url' | 'body',
+      count: data.count,
+    }));
+    if (records.length > 0) {
+      await db.terms.bulkAdd(records);
+    }
+  } catch {
+    // Term indexing is optional — page record is already saved
   }
 }
 

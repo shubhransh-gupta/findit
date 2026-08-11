@@ -1,10 +1,15 @@
 import { indexPage, updateVisitOnly } from '../indexing/pageIndexer';
 import { getPageByUrl, getSettings } from '../database/repositories/pageRepository';
 import { isExcludedUrl, simpleHash } from '../shared/utils';
-import type { ExtractedContent } from '../shared/types';
 
-interface IndexPayload extends ExtractedContent {
+interface IndexPayload {
   url: string;
+  title: string;
+  description?: string;
+  headings: string[];
+  content: string;
+  wordCount?: number;
+  favicon?: string;
   savedSelection?: string;
 }
 

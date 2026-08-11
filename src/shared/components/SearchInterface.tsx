@@ -20,7 +20,7 @@ export function SearchInterface({ initialQuery = '', compact = false }: { initia
   useEffect(() => {
     sendMessage('GET_STATS').then(setStats);
     inputRef.current?.focus();
-  }, []);
+  }, [results.length]);
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -120,12 +120,22 @@ export function SearchInterface({ initialQuery = '', compact = false }: { initia
             </p>
           </div>
         )}
-        {!query && results.length === 0 && (
+        {!query && results.length === 0 && !loading && (
           <div className="search-welcome">
             <div className="welcome-icon">🔎</div>
-            <h2>FINDIT is remembering</h2>
-            <p>Browse normally. FINDIT will make your browsing searchable.</p>
-            <p className="privacy-note">🔐 Everything stays local.</p>
+            {stats.pageCount === 0 ? (
+              <>
+                <h2>No pages indexed yet</h2>
+                <p>Browse a few websites, then come back here to search.</p>
+                <p className="privacy-note">Pages are indexed as you visit them — refresh open tabs or visit new sites to get started.</p>
+              </>
+            ) : (
+              <>
+                <h2>FINDIT is remembering</h2>
+                <p>Browse normally. FINDIT will make your browsing searchable.</p>
+                <p className="privacy-note">🔐 Everything stays local.</p>
+              </>
+            )}
           </div>
         )}
         {results.map((result, i) => (
